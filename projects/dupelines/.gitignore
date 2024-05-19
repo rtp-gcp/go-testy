@@ -1,0 +1,17 @@
+setkey.sh
+
+# these are the binaries
+dupelines
+
+# this is the folder
+pkg/
+
+# these vary over time
+go.mod
+go.sum
+
+# ignore the bin dir 
+bin/
+
+# ninja log
+.ninja_log

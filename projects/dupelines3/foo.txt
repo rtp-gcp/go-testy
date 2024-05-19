@@ -1,0 +1,4 @@
+This is a line in foo.txt
+This is a line in foo.txt
+This is a line in foo.txt
+This is a common line

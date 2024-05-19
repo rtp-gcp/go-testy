@@ -1,0 +1,94 @@
+#
+# Variables
+#
+exefile = fetchurl
+srcfile = $exefile.go
+# good url
+url1 = http://gopl.io
+# bad url
+url2 = http://bad.gopl.io
+
+
+#
+# Rules
+#
+rule mod_init_r
+    command = go mod init $exefile
+
+rule tidy_r
+    command = go mod tidy
+
+rule build_r
+    command = go build $out
+
+rule test1_r
+    command = ./$exefile
+    description = "tests the app without args"
+
+rule test2_r
+    command = ./$exefile $url1
+    description = "tests by opening a good url passed as arg "
+
+rule test3_r
+    command = ./$exefile $url2
+    description = "tests by opening a bad url passed as arg "
+
+#
+# build targets
+#
+
+
+
+# go.mod
+build $
+go.mod $
+: mod_init_r 
+
+# tidy
+build $
+nothing $
+: tidy_r $srcfile $
+| go.mod
+
+
+
+
+
+
+# $exefile
+build $
+$exefile $
+: build_r $srcfile $
+| go.mod                     
+
+
+
+# test 1
+# runs app without args
+build $
+test1 $
+: test1_r $
+| $exefile
+
+
+# test 2
+# Runs app with a good url as an arg
+build $
+test2 $
+: test2_r $
+| $exefile
+
+# test 3
+# Runs app with a bad url as an arg
+build $
+test3 $
+: test3_r $
+| $exefile
+
+
+
+# by default only this target is made
+#default $exefile
+#default test1
+#default test2
+default test3

@@ -1,0 +1,82 @@
+#
+# Variables
+#
+exefile = dupelines
+srcfile = $exefile.go
+
+
+#
+# Rules
+#
+rule mod_init_r
+    command = go mod init $exefile
+
+rule tidy_r
+    command = go mod tidy
+
+rule build_r
+    command = go build $out
+
+rule exe_r
+    command = ./$in
+
+rule test2_r
+    command = echo "this\nthis\nthat\n" | ./$exefile
+    description = "tests with standard input"
+
+#
+# build targets
+#
+
+
+
+# go.mod
+build $
+go.mod $
+: mod_init_r 
+
+# tidy
+build $
+nothing $
+: tidy_r $srcfile $
+| go.mod
+
+
+# build stanza notes
+#build $                      # signifies a build stanza
+#$exefile $                   # list of outputs 
+#: build_r $srcfile           # : denotes a rule and list of inputs
+#| go.mod                     # | denotes a list of dependencies
+
+
+#build $                      # signifies a build stanza
+#$exefile $                   # list of outputs 
+#: build_r $srcfile $         # : denotes a rule and list of inputs
+#| go.mod                     # | denotes a list of dependencies
+
+
+
+
+# $exefile
+build $
+$exefile $
+: build_r $srcfile $
+| go.mod                     
+
+
+
+# test 1
+build $
+test1 $
+: exe_r $exefile
+
+# test 2
+# $ ninja test2
+build $
+test2 $
+: test2_r $exefile
+
+
+# by default only this target is made
+#default $exefile
+default test2
