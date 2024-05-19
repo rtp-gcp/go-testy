@@ -1,5 +1,5 @@
 // Fetch prints the content found at each specified URL.
-// ch 1.4
+// ch 1.5
 // exercise 1.8
 // Modify fetch to add the prefix http:// to each argument URL if it
 // is missing.  You might want use strings.HasPrefix.

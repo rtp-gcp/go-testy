@@ -1,0 +1,118 @@
+#
+# Variables
+#
+exefile = fetchurls
+srcfile = $exefile.go
+# good url
+url1 = http://gopl.io
+# bad url
+url2 = http://bad.gopl.io
+# url missing prefix
+url3 = google.com
+
+
+#
+# Rules
+#
+rule mod_init_r
+    command = go mod init $exefile
+
+rule tidy_r
+    command = go mod tidy
+
+rule build_r
+    command = go build $out
+
+rule test1_r
+    command = ./$exefile
+    description = "tests the app without args"
+
+rule test2_r
+    command = ./$exefile $url1
+    description = "tests by opening a good url passed as arg "
+
+rule test3_r
+    command = ./$exefile $url2
+    description = "tests by opening a bad url passed as arg "
+
+rule test4_r
+    command = ./$exefile $url3
+    description = "tests by opening a url without http:// prefix "
+
+rule test5_r
+    command = ./$exefile $url1 $url2 $url3
+    description = "tests by opening multiple urls simultaneously "
+
+#
+# build targets
+#
+
+
+
+# go.mod
+build $
+go.mod $
+: mod_init_r 
+
+# tidy
+build $
+nothing $
+: tidy_r $srcfile $
+| go.mod
+
+
+
+
+
+
+# $exefile
+build $
+$exefile $
+: build_r $srcfile $
+| go.mod                     
+
+
+
+# test 1
+# runs app without args
+build $
+test1 $
+: test1_r $
+| $exefile
+
+
+# test 2
+# Runs app with a good url as an arg
+build $
+test2 $
+: test2_r $
+| $exefile
+
+# test 3
+# Runs app with a bad url as an arg
+build $
+test3 $
+: test3_r $
+| $exefile
+
+
+# test 4
+# Runs app with a url missing http://
+build $
+test4 $
+: test4_r $
+| $exefile
+
+# test 4
+# Runs app with multiple urls 
+build $
+test5 $
+: test5_r $
+| $exefile
+
+# by default only this target is made
+#default $exefile
+#default test1
+#default test2
+#default test3
+default test5

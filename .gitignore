@@ -8,6 +8,9 @@ bin/gopls
 bin/staticcheck
 .DS_Store
 
+# ignore ninja deps files
+.ninja_deps
+
 # Test binary, built with `go test -c`
 *.test
 

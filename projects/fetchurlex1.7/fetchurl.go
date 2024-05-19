@@ -1,5 +1,5 @@
 // Fetch prints the content found at each specified URL.
-// ch 1.4
+// ch 1.5
 // exercise 1.7 The function call to io.Copy(dst, src) reads from src and
 // writes to dst.  Use it instead of iotuil.ReadAll to copy the response
 // body to os.Stdout without requiring a buffer large enough

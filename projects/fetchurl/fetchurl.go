@@ -1,5 +1,5 @@
 // Fetch prints the content found at each specified URL.
-// ch 1.4
+// ch 1.5
 package main
 
 // When using the intellisense for a routine, it will

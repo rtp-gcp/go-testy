@@ -1,6 +1,6 @@
 setkey.sh
 
-# ignore ninja depht file
+# ignore ninja deps files
 .ninja_deps
 
 # this is the folder
