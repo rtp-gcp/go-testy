@@ -1,5 +1,7 @@
 setkey.sh
 
+# ignore ninja depht file
+.ninja_deps
 
 # this is the folder
 pkg/
