@@ -25,7 +25,7 @@ func main() {
 
 	// They can do multiple urls at a time
 	for _, url := range os.Args[1:] {
-		// check for http:// prefix
+
 		if !strings.HasPrefix(url, "http://") {
 			//fmt.Fprintf(os.Stderr, "missing prefix: %v\n", url)
 			//os.Exit(1)

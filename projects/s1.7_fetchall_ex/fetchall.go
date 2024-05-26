@@ -1,5 +1,8 @@
 // Demos concurrency and channels
 // ch 1.6
+// EX 1.10 and 1.11 modify to:
+// * save result
+// * abort on timeout
 
 package main
 
@@ -8,9 +11,9 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -31,6 +34,12 @@ func main() {
 
 	// They can do multiple urls at a time
 	for _, url := range os.Args[1:] {
+
+		if !strings.HasPrefix(url, "http://") {
+			//fmt.Fprintf(os.Stderr, "missing prefix: %v\n", url)
+			//os.Exit(1)
+			url = "http://" + url
+		}
 		// Create a new goroutine here !!!
 		go fetch(url, ch) // start a goroutine with the newly created channel
 	}
@@ -52,17 +61,60 @@ func fetch(url string, ch chan<- string) {
 		return
 	}
 
-	// copies the response body text to a null buffer using
-	// ioutil.Discard.  Why do something so trivial?  Well,
-	// its because we want to get the number of bytes of response
-	// and this is a simple way to do so I suppose.
-	// ioutil.Discard is used as the output stream.
-	nbytes, err := io.Copy(ioutil.Discard, resp.Body)
-	resp.Body.Close() // don't leak resources
+	//var body_as_text string
+	bytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		ch <- fmt.Sprintf("while reading %s: %v", url, err)
+		return
+	}
+	//
+	// write the contents to a file with a suffix of date and time
+	//
+	writeTextToFile(bytes, "yo")
+
+	// for some reason, when we did the copy, the body content was
+	// was discarded in the source as well.
+	nbytes, err := io.Copy(io.Discard, resp.Body)
 	if err != nil {
 		ch <- fmt.Sprintf("while reading %s: %v", url, err)
 		return
 	}
 	secs := time.Since(start).Seconds()
 	ch <- fmt.Sprintf("%.2fs  %7d %s", secs, nbytes, url)
+
+	resp.Body.Close() // don't leak resources
+}
+
+func writeTextToFile(bytes []byte, filename string) {
+	fmt.Printf("== writeTextToFile(bytes, %s)\n", filename)
+	body_as_text := string(bytes)
+
+	fmt.Println("-------")
+	fmt.Printf("content %s: \n", body_as_text)
+	fmt.Println("-------")
+
+	// Determine timestamp for file suffix
+	// Load a location
+	loc, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		return
+	}
+	// Get the current time in that location
+	currentTime := time.Now().In(loc)
+
+	// Format the time as a string
+	formattedTime := currentTime.Format("2006-01-02 15:04:05 MST")
+
+	// Print the formatted time
+	fmt.Println("Current time and date in New York:", formattedTime)
+
+	// append the timestamp to the filename
+	filename = filename + formattedTime
+
+	// write content to file with specified filename
+	err = os.WriteFile(filename, bytes, 0644)
+	if err != nil {
+		fmt.Println("error writing file")
+	}
 }
