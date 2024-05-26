@@ -49,9 +49,17 @@ Ask yourself:
 
 ## Exercise 1.11
 
-Try fetchall with longer argument lists such as samples from the top millin web sites avaialbe at
+Try fetchall with longer argument lists such as samples from the top million web sites available at
 alexa.com.  How does the program respond if a web site does not respond?  (Section 8.9 describes 
 mechanisms for coping in such cases.)
+
+This domain is gone, but google points to [wikipedia](https://en.wikipedia.org/wiki/List_of_most-visited_websites)
+    1. google
+    2. youtube
+    3. facebook
+    4. instagram
+    5. x/twitter
+
 
 
 

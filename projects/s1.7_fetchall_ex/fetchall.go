@@ -28,6 +28,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	fmt.Println("yo yo")
+
 	start := time.Now()
 	// Create a channel of string type each time!!!!
 	ch := make(chan string)
