@@ -7,7 +7,11 @@ https://play.golang.org
 https://go.dev/play/
 
 
-## The book
+## The golang book
 
-* https://github.com/neo-liang-sap/book/blob/master/Go/The.Go.Programming.Language.pdf
-* http://www.cs.uniroma2.it/upload/2017/TSC/The%20Go%20Programming%20Language.pdf
+* [one version](https://github.com/neo-liang-sap/book/blob/master/Go/The.Go.Programming.Language.pdf)
+* [another version](http://www.cs.uniroma2.it/upload/2017/TSC/The%20Go%20Programming%20Language.pdf)
+
+## ninja
+
+* [manual](https://ninja-build.org/manual.html#ref_outputs)
