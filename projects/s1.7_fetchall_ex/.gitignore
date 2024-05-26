@@ -10,6 +10,9 @@ pkg/
 go.mod
 go.sum
 
+# ignore the output files with the html content
+file*
+
 # ignore the bin dir 
 bin/
 

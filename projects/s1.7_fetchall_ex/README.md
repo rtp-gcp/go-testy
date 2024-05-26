@@ -42,7 +42,9 @@ reported time changes.
 Ask yourself:
 
 * Do the times vary?
+    - yes.  Google first time 30s, second time 17s.  Kind of the same thing for amazon as well.
 * Does the returned results written to file vary?
+    - yes.  For google, the nonce values change.
 
 
 ## Exercise 1.11

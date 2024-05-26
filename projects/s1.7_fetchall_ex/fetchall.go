@@ -33,7 +33,7 @@ func main() {
 	ch := make(chan string)
 
 	// They can do multiple urls at a time
-	for _, url := range os.Args[1:] {
+	for index, url := range os.Args[1:] {
 
 		if !strings.HasPrefix(url, "http://") {
 			//fmt.Fprintf(os.Stderr, "missing prefix: %v\n", url)
@@ -41,7 +41,7 @@ func main() {
 			url = "http://" + url
 		}
 		// Create a new goroutine here !!!
-		go fetch(url, ch) // start a goroutine with the newly created channel
+		go fetch(url, ch, index) // start a goroutine with the newly created channel
 	}
 	for range os.Args[1:] {
 		fmt.Println(<-ch) // receive from channel ch
@@ -52,7 +52,9 @@ func main() {
 
 // Interesting, they are not using a return value.  Instead
 // the code uses the channel parameter to return results.
-func fetch(url string, ch chan<- string) {
+func fetch(url string, ch chan<- string, counter int) {
+	var filename string
+
 	start := time.Now()
 	resp, err := http.Get(url)
 	if err != nil {
@@ -70,7 +72,11 @@ func fetch(url string, ch chan<- string) {
 	//
 	// write the contents to a file with a suffix of date and time
 	//
-	writeTextToFile(bytes, "yo")
+
+	// Determine a filename based upon url
+	// Just do a url counter like file1, file2, etc.
+	filename = fmt.Sprintf("file%d-", counter)
+	writeTextToFile(bytes, filename)
 
 	// for some reason, when we did the copy, the body content was
 	// was discarded in the source as well.
@@ -86,34 +92,39 @@ func fetch(url string, ch chan<- string) {
 }
 
 func writeTextToFile(bytes []byte, filename string) {
-	fmt.Printf("== writeTextToFile(bytes, %s)\n", filename)
-	body_as_text := string(bytes)
+	//fmt.Printf("== writeTextToFile(bytes, %s)\n", filename)
+	//body_as_text := string(bytes)
 
-	fmt.Println("-------")
-	fmt.Printf("content %s: \n", body_as_text)
-	fmt.Println("-------")
+	//fmt.Println("-------")
+	//fmt.Printf("content %s: \n", body_as_text)
+	//fmt.Println("-------")
 
 	// Determine timestamp for file suffix
 	// Load a location
-	loc, err := time.LoadLocation("America/New_York")
-	if err != nil {
-		fmt.Println("Error loading location:", err)
-		return
-	}
+	//loc, err := time.LoadLocation("America/New_York")
+	//if err != nil {
+	//	fmt.Println("Error loading location:", err)
+	//	return
+	//}
 	// Get the current time in that location
-	currentTime := time.Now().In(loc)
+	//currentTime := time.Now().In(loc)
+
+	// Get the current time in UTC
+	currentTime := time.Now().UTC()
 
 	// Format the time as a string
-	formattedTime := currentTime.Format("2006-01-02 15:04:05 MST")
+	//formattedTime := currentTime.Format("2006-01-02Z15:04:05 MST")
+	// Format the time as ISO 8601 format
+	formattedTime := currentTime.Format(time.RFC3339)
 
 	// Print the formatted time
-	fmt.Println("Current time and date in New York:", formattedTime)
+	//fmt.Println("Current time and date in New York:", formattedTime)
 
 	// append the timestamp to the filename
 	filename = filename + formattedTime
 
 	// write content to file with specified filename
-	err = os.WriteFile(filename, bytes, 0644)
+	err := os.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		fmt.Println("error writing file")
 	}
