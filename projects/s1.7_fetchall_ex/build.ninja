@@ -23,6 +23,10 @@ rule tidy_r
 rule build_r
     command = go build $out
 
+rule build_debug_r
+    command = go build -gcflags=all='-N -l' $out
+
+
 rule test1_r
     command = ./$exefile
     description = "tests the app without args"
@@ -65,12 +69,17 @@ nothing $
 
 
 
-# $exefile
+# release build of $exefile
+#build $
+#$exefile $
+#: build_r $srcfile $
+#| go.mod                     
+
+# debug build of $exefile
 build $
 $exefile $
-: build_r $srcfile $
+: build_debug_r $srcfile $
 | go.mod                     
-
 
 
 # test 1
@@ -111,8 +120,8 @@ test5 $
 | $exefile
 
 # by default only this target is made
-#default $exefile
+default $exefile
 #default test1
 #default test2
 #default test3
-default test5
+#default test5

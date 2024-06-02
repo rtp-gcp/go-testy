@@ -13,14 +13,25 @@
     //        "avoidWindowsConsoleRedirection": false
     "configurations": [
 
+        // This is how we originally built the code debug/release
+        // {
+        //     "name": "Launch Package",
+        //     "type": "go",
+        //     "request": "launch",
+        //     "program": "${fileDirname}",
+        //     "mode": "auto",
+        //     //"preLaunchTask": "golang build active file",
+        //     "preLaunchTask": "golang debug build active file",
+        //     "args": ["google.com"],
+        //     "cwd": "${fileDirname}"
+        // },
         {
             "name": "Launch Package",
             "type": "go",
             "request": "launch",
             "program": "${fileDirname}",
             "mode": "auto",
-            //"preLaunchTask": "golang build active file",
-            "preLaunchTask": "golang debug build active file",
+            "preLaunchTask": "Ninja debug build",
             "args": ["google.com"],
             "cwd": "${fileDirname}"
         },
