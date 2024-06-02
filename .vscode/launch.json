@@ -32,7 +32,7 @@
             "program": "${fileDirname}",
             "mode": "auto",
             "preLaunchTask": "Ninja debug build",
-            "args": ["google.com"],
+            "args": ["https://httpbin.org/delay/10"],
             "cwd": "${fileDirname}"
         },
     ]
