@@ -1,0 +1,70 @@
+
+//"presentation": {
+//	"reveal": "always",
+//	"panel": "new",
+//	"focus": true
+//}
+
+
+{
+	"version": "2.0.0",
+	"tasks": [
+		// Normal build
+		{
+			"type": "shell",
+			"label": "golang build active file",
+			"command": "/usr/local/go/bin/go",
+			"args": [
+                "build",
+				"${file}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/local/go/bin/go"
+		},
+				// Debug build
+		{
+			"type": "shell",
+			"label": "golang debug build active file",
+			"command": "/usr/local/go/bin/go",
+			"args": [
+                "build",
+                "-gcflags=all='-N -l'",
+				"${file}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+				//"cwd": "projects/s1.7_fetchall_ex"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/local/go/bin/go"
+		},
+		// Ninja Debug build
+		{
+			"type": "shell",
+			"label": "Ninja debug build",
+			"command": "/opt/homebrew/bin/ninja",
+			"args": [
+				"-v"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "ninja: /opt/homebrew/bin/ninja"
+		}
+		
+
+	]
+}

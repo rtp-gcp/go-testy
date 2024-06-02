@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    // kind of weird it does not need the actual file name. it just
+    // needs the dir name.  Perhaps, it reads the go.mod in this particular
+    // directory to determine what to run.
+    //        "program": "${fileDirname}"
+    //        "program": "${fileDirname}/${fileBasenameNoExtension}"
+    // the output is in the debug console. Not sure why it does not switch automatically
+    // like in c++
+    //        "avoidWindowsConsoleRedirection": false
+    "configurations": [
+
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "program": "${fileDirname}",
+            "mode": "auto",
+            //"preLaunchTask": "golang build active file",
+            "preLaunchTask": "golang debug build active file",
+            "args": ["google.com"],
+            "cwd": "${fileDirname}"
+        },
+    ]
+}

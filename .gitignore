@@ -22,7 +22,8 @@ bin/staticcheck
 
 godemo
 
-.vscode
+# actually we want our .vscode dir in git
+#.vscode
 
 pkg/
 
