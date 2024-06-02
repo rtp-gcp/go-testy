@@ -50,17 +50,8 @@ func main() {
 		}
 		// Start the goroutine
 		go fetch(ctx, url, ch, index)
-
-		// // Use a select statement to implement a timeout
-		// select {
-		// case <-ch:
-		// 	fmt.Println("Function completed successfully")
-		// case <-time.After(3 * time.Second):
-		// 	fmt.Println("Function timed out")
-		// 	close(ch)
-		// 	ch = make(chan string)
-		// }
 	}
+
 	for range os.Args[1:] {
 		fmt.Println(<-ch) // receive from channel ch
 	}
