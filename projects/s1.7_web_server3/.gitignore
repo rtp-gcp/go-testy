@@ -1,0 +1,20 @@
+setkey.sh
+
+# these are the binaries
+server3
+
+# this is the folder
+pkg/
+
+# these vary over time
+go.mod
+go.sum
+
+# ignore the output files with the html content
+file*
+
+# ignore the bin dir 
+bin/
+
+# ninja log
+.ninja_log
