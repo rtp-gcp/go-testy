@@ -7,8 +7,12 @@
 // Steps
 // In terminal do:
 // 1. $ go mod init module1
+//   -- This style is global namespace
 //   -- demo did:
 //      $ go mod init news.com/events
+//      -- This style is using a non global namespace
+//         The news.com/events is a virtual path.  The host could be github.com/netskink
+//         and the app foo corresponding to the dir name of the git repo.
 //   -- this creates:
 //      go.mod which contains:
 //         ```

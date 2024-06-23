@@ -23,7 +23,8 @@ package main
 import (
 	"log"
 	"net/http"
-	//"github.com/netskink/lissajous"
+
+	lissajous "github.com/netskink/st1.7_web_server4/lissajous"
 )
 
 func main() {
@@ -34,7 +35,7 @@ func main() {
 		// cd ~..../projects/lissajous
 		// go build <-- previously done via ninja build
 		// go install <-- this installs the module in ~/go/bin/ workspace dir
-		lissajous(w)
+		lissajous.Lissajous(w)
 	}
 	http.HandleFunc("/", handler) // each request calls handler
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
