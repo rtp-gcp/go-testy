@@ -1,0 +1,108 @@
+#
+# Variables
+#
+exefile = lissajous
+srcfile = $exefile.go
+
+
+#
+# Rules
+#
+rule mod_init_r
+    command = go mod init $exefile
+
+rule tidy_r
+    command = go mod tidy
+
+rule build_r
+    command = go build $out
+
+rule exe_r
+    command = ./$in
+
+#rule test2_r
+#    command = echo "this\nthis\nthat\n" | ./$exefile
+#    description = "tests with standard input"
+
+
+# NOTE: this might need an entry for implicit = out.gif
+# however it chokes on implicit = line
+#
+# The way its working now, test3 and out.gif are both outputs
+# of the build rule.  However, test3 is an implicit output.
+# An implicit output does not show up in the list of outputs
+# passed to rule and referred to as $out.
+rule test3_r
+    command = ./$in > $out; open $out
+#    command = ./$in > out.gif; open out.gif
+#    command = ./$in > $out1; open $out1
+#    command = ./$exefile > out.gif
+#    command = "./$exefile > out.gif; open out.gif"
+    description = "tests by making gif and then display"
+#    implicit = out.gif
+
+
+#
+# build targets
+#
+
+
+
+# go.mod
+build $
+go.mod $
+: mod_init_r 
+
+# tidy
+build $
+nothing $
+: tidy_r $srcfile $
+| go.mod
+
+
+# build stanza notes
+#build $                      # signifies a build stanza
+#$exefile $                   # list of outputs 
+#: build_r $srcfile           # : denotes a rule and list of inputs
+#| go.mod                     # | denotes a list of dependencies
+
+
+#build $                      # signifies a build stanza
+#$exefile $                   # list of outputs 
+#: build_r $srcfile $         # : denotes a rule and list of inputs
+#| go.mod                     # | denotes a list of dependencies
+
+
+
+
+# $exefile
+build $
+$exefile $
+: build_r $srcfile $
+| go.mod                     
+
+
+
+# test 1
+build $
+test1 $
+: exe_r $exefile
+
+# test 2
+# $ ninja test2
+#build $
+#test2 $
+#: test2_r $exefile
+
+# test 3
+# This shows that out.gif is an implicit output generated
+# by running the build but it did not work
+build $
+out.gif $
+| test3 $
+: test3_r $exefile
+
+
+# by default only this target is made
+#default $exefile
+default test3
