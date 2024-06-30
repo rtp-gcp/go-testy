@@ -1,9 +1,8 @@
 setkey.sh
 
 # these are the binaries
+server4
 lissajous
-out.gif
-foo.gif
 
 # this is the folder
 pkg/
@@ -11,6 +10,9 @@ pkg/
 # these vary over time
 go.mod
 go.sum
+
+# ignore the output files with the html content
+file*
 
 # ignore the bin dir 
 bin/
