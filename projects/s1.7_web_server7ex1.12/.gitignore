@@ -2,7 +2,7 @@ setkey.sh
 
 # these are the binaries
 server4
-lissajous
+s1.7_web_server7ex12
 
 # this is the folder
 pkg/
