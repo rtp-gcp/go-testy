@@ -21,23 +21,48 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/netskink/lissajous"
 )
 
 func main() {
-	// This is an anonymous function, he calls this
-	// a function literal
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		// This uses a module which needs to be installed
-		// TODO: this needs to be adjusted from the last sample
-		// cd ~..../projects/lissajous
-		// go build <-- previously done via ninja build
-		// go install <-- this installs the module in ~/go/bin/ workspace dir
-		lissajous.Lissajous(w)
-	}
 	http.HandleFunc("/", handler) // each request calls handler
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+
+	var cycles int = 5
+
+	fmt.Println("==== handler() ====")
+	fmt.Printf("Path: %s\n", r.URL.Path)
+	fmt.Printf("Method: %s\n", r.Method)
+	fmt.Printf("URL: %s\n", r.URL)
+	fmt.Printf("Protocol: %s\n", r.Proto)
+	for k, v := range r.Header {
+		fmt.Printf("Header[%q]: %q\n", k, v)
+	}
+	fmt.Printf("Host: %q\n", r.Host)
+	fmt.Printf("RemoteAddr: %q\n", r.RemoteAddr)
+	if err := r.ParseForm(); err != nil {
+		// https://pkg.go.dev/log
+		log.Print(err)
+	}
+
+	for k, v := range r.Form {
+		fmt.Printf("Form[%q]: %q\n", k, v)
+		if k == "cycles" {
+			var err error
+			cycles, err = strconv.Atoi(v[0])
+			if err != nil {
+				cycles = 5
+			}
+		}
+	}
+
+	lissajous.Lissajous(w, cycles)
 }

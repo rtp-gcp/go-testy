@@ -27,9 +27,13 @@ The file that was ~/go/bin/lissajous was not recreated as a result of building t
 Perhaps it was put there a long time ago as part of a `go install .`?
 
 TODO: Punt for now and figure out versions.
-
+COMPLETE: 20240707 Version fix below completed this objective
 
 TODO: Need to figure out ow to do this via go commands.
+COMPLETE: 20240707 Version fix below completed this objective
+
+
+## other notes
 
 This shows the current env settings used by go
 ```
@@ -57,6 +61,40 @@ go vet
 go run .
 ```
 
+### Fixing via versions
+
+For the lissajous module, tag via:
+
+```
+$ git tag v1.0.0
+$ git push origin v1.0.0
+```
+
+Then for this code (the server code which uses the module) 
+
+1. `go mod init github.com/netskink/st1.7_web_server7ex12 `
+2. `go get github.com/netskink/lissajous@v1.0.0`
+3. `go mod tidy`
+
+
+When we did this method, it reliably pulled the code from github each time we did a push.
+
 
 
 open browser to `http://localhost:8000`
+
+
+## Work for ex 1.12
+
+Modify the server to read parameter values from the URL.
+
+### Example
+
+specify 20 cycles instead of default of 5.
+
+```
+http://localhost:8000/?cycles=20
+```
+
+* Use strconv.Atoi function to convert the string parameter into an integer.
+    - `go doc strconv.Atoi`
