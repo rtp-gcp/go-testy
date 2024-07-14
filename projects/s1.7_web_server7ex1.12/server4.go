@@ -17,6 +17,7 @@
 // * fetchall discards via ioutil.Discard
 // * webserver writes to http.ResponseWriter
 // * printf writes to os.Stdout
+// add some text
 
 package main
 

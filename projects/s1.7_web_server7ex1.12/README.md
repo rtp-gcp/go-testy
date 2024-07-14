@@ -73,7 +73,7 @@ $ git push origin v1.0.0
 Then for this code (the server code which uses the module) 
 
 1. `go mod init github.com/netskink/st1.7_web_server7ex12 `
-2. `go get github.com/netskink/lissajous@v1.0.0`
+2. `go get github.com/netskink/lissajous@v1.0.2`
 3. `go mod tidy`
 
 
