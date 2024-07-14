@@ -56,3 +56,11 @@ defaults write com.vscodium ApplePressAndHoldEnabled -bool false
 defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false
 defaults delete -g ApplePressAndHoldEnabled 
 ```
+
+
+# Useful hotkeys
+
+
+* `ctrl ~` 
+    - toggles code and keyboard
+
