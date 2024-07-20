@@ -59,7 +59,7 @@ In this case, this module/program is intended to be reside in GitHub.com under m
 
 This and the associated directory structure is show in the figure.
 
-![mod init tutor](../imgs/mod_init.gif)
+![mod init](../imgs/mod_init.png)
 
 ### Standalone component 1 - the lissajous program
 
