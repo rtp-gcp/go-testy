@@ -155,4 +155,6 @@ My terms might not be correct golang, but here is an explantion for each.
     - A collection of source files belonging to a namespace.
 
 
-## References
+## References/URLs
+
+* Official guide for modules is [here](https://go.dev/doc/tutorial/create-module).
