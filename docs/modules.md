@@ -31,9 +31,35 @@ Before we get too deep into the implementation of the modules, here is a quick e
 When building go programs, here is the simplest sequence:
 
 1. make changes to code
-2. go mod init somename
-3. go mod tidy
-4. go run .
+2. `go mod init somename`
+3. `go mod tidy`
+4. `go run .`
+
+Regarding the somename parameter for mod init.  Here is how I think of it:
+
+```
+$ go mod init [namespace/]<module name>
+```
+
+The square brackets denote the namespace is optional. The module name is required and it does not need to match the directory name.
+
+It's best demonstrated with examples.
+
+```
+$ go mod init foo
+```
+
+This module is in the global namespace and it could reside in a directory of any name, but I find its best to have the directory name and the module match.
+
+```
+$ go mod init github.com/netskink/foo
+```
+
+In this case, this module/program is intended to be reside in GitHub.com under my userid - netskink, and have the repo name as foo.
+
+This and the associated directory structure is show in the figure.
+
+![mod init tutor](../imgs/mod_init.gif)
 
 ### Standalone component 1 - the lissajous program
 
