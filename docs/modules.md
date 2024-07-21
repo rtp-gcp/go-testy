@@ -2,7 +2,7 @@
 
 ## Overview
 
-Each week our GDG (GDG Cloud RTP) hosts a weekly workshop where we study on a topic of interest.  During our work on learning Go, where we follow "The Go Programming Language" book by Donovan and Kernighan, there is a section where they detail how to create a webserver that returns a Lissajous animated gif.   The section intends to use two different programs together to implement this capability.
+Each week our GDG (GDG Cloud RTP) hosts a weekly workshop where we study on a topic of interest.  During our work on learning Go, where we follow "The Go Programming Language" [book](https://www.gopl.io/) by Donovan and Kernighan, there is a section where they detail how to create a webserver that returns a Lissajous animated gif.   The section intends to use two different programs together to implement this capability.
 
 We struggled with this part because we did not understand how this was it intended to be done.  As a result, this document explains the various steps to do so and captures the result of this learning exercise.
 
