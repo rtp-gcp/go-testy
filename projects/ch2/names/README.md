@@ -182,3 +182,128 @@ in, err := os.Open(anotherfile)
 // use this instead
 in, err = os.Open(anotherfile)
 ```
+#### Pointers
+
+Similar operations as c.
+
+* `&` takes address of variable
+* `*` returns value at address
+
+
+```
+ x := 1
+ p := &x  // p, of type *int, points to x
+ fmt.Println(*p) // "1"
+ *p = 2          // equivalent to x = 2
+fmt.Println(x)  // "2"
+```
+
+The zero value for ints is 0 and for pointers nil.
+
+```
+func main() {
+	var x, y int
+	fmt.Println(&x == &x, &x == &y, &x == nil) // "true false false"
+
+	var p *int
+	fmt.Println(p)        // nil
+	fmt.Println(p == nil) // "true "
+	p = &x
+	fmt.Println(p)        // not nil
+	fmt.Println(p == nil) // "false"
+}
+```
+
+output
+
+```
+true false false
+<nil>
+true
+0xc000012028
+false
+```
+
+functions can return pointers
+
+This is interesting, In C, this would return the address of a value on the stack,
+which only persists for the lifetime of the function.  I suppose since go does not have
+a delete or free api and instead uses a garbage collector (GC) to free allocations
+upon the last usage of a variable its ok to reurn the address of a variable
+created/allocated in a function.
+
+Each call of f() has a unique address of v.
+
+```
+func main() {
+
+	var p = f()
+	fmt.Println(" p : ", p)
+
+}
+
+func f() *int {
+	v := 1
+	fmt.Println(" v(addr): ", &v)
+	return &v
+}
+```
+
+Output
+
+```
+v(addr):  0xc0000a2010
+p :  0xc0000a2010
+```
+
+
+Demo of unique address of v.
+
+```
+func main() {
+
+	var p = f()
+	fmt.Println(" p : ", p)
+
+    fmt.Println(f() == f()) // "false"
+
+}
+
+func f() *int {
+	v := 1
+	fmt.Println(" v(addr): ", &v)
+	return &v
+}
+```
+
+Output
+
+```
+v(addr):  0xc000012028
+p :  0xc000012028
+v(addr):  0xc000012060
+v(addr):  0xc000012068
+false
+```
+
+Just like c/c++ it uses function pointers to manipulate variables
+passed as args to a function.
+
+```
+func incr(p *int) int {
+    *p++ // increments what p points to; does not change p
+    return *p
+}
+
+
+     v := 1
+     incr(&v)              // side effect: v is now 2
+     fmt.Println(incr(&v)) // "3" (and v is 3)
+```
+
+The flags package (program args) uses pointers to not just get values, but to also set
+values. See `projects/ch2/args/echo4.go`.
+
+
+
+
