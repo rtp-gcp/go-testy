@@ -305,5 +305,89 @@ The flags package (program args) uses pointers to not just get values, but to al
 values. See `projects/ch2/args/echo4.go`.
 
 
+#### New
+
+`new()` is a function that creates a variable containing an address of a type initialized to the zero value of the type.  The function returns a type of address to type parameter.
+
+```
+	p := new(int)
+	fmt.Println(p)  // the address
+	fmt.Println(*p) // the value
+	*p = 2          // change the value to be 2 rather than the default value of 0
+	fmt.Println(*p) // the value is now 2
+}
+```
+
+output
+```
+0xc0000`2028
+0
+2
+```
+
+Here these two functions are equivalent.  Note in c/c++ the stack variable would
+go away and this would be an error.  Here the new() function is not explictly used
+but because go does not have a delete/free operation and uses an automatic garbage
+collector these are equivalent.
+
+
+```
+func newInt() *int {
+	return new(int)
+}
+
+func newInt2() *int {
+	var dummy int
+	return &dummy
+}
+
+func main() {
+	// test 1
+	p1 := newInt()
+	fmt.Println(p1)  // the address
+	fmt.Println(*p1) // the value
+	*p1 = 2          // change the value to be 2 rather than the default value of 0
+	fmt.Println(*p1) // the value is now 2
+
+	// test 2
+	p2 := newInt2()
+	fmt.Println(p2)  // the address
+	fmt.Println(*p2) // the value
+	*p2 = 2          // change the value to be 2 rather than the default value of 0
+	fmt.Println(*p2) // the value is now 2
+}
+```
+
+output
+
+```
+0xc0000aa010
+0
+2
+0xc0000aa018
+0
+2
+```
+
+Note: The new function is relatively rarely used because the most common unnamed variables are of struct types, for which the struct literal syntax (§4.4.1) is more flexible.
+
+Since `new()` is a function, it can be redefined.  In this example new is a parameter and within
+the function `new()` is unavailable.
+
+```
+func delta(new, old int) int {
+	// new() is unavailable here
+	foo := new(int)
+	*foo = 3
+	return 3 - new - old
+}
+```
+
+Can't do above.  The error message is:
+```
+invalid operation: cannot call non-function new (variable of type int)
+```
+
+
 
 
