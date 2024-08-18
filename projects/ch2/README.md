@@ -387,7 +387,47 @@ Can't do above.  The error message is:
 ```
 invalid operation: cannot call non-function new (variable of type int)
 ```
+#### Lifetime of variablesa
+
+Once a variable is no longer accessible as in context stanza goes away, the garbage
+collector deallocates a variable.
+
+In this loop t persists the entire time of the context scope but x and y 
+are allocated and deallocated each loop interation.
+
+```
+for t := 0.0; t <x; t+= res {
+	x := math.Sin(t)
+	y := math.Sin(t)
+	// do stuff with x and y
+}
+```
+
+The above variables are allocated on the stack.  Here is what happens when
+a variable is allocated on the heap using new() or with a reference and assigned to
+a global.
 
 
+```
+var global *int
 
+func f() {
+	var x int
+	global = &x
+}
+```
+
+Here x is on the stack and goes away when f() is complete.  However, the memory persists because
+the address is assigned to global and its global.
+
+```
+func g() {
+	y := new(int)
+	*y = 1
+}
+
+In this case new() allocates on the heap, but the value of y is dereferenced and assigned a value without 
+returning the value or the address.  Go, python and swift require the use of return to return a value, unlike R.
+
+So, in this case the heap allocated variable is returned to memory by the garbage collector when g() completes.
 
