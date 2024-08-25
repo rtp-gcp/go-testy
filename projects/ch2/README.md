@@ -431,3 +431,29 @@ returning the value or the address.  Go, python and swift require the use of ret
 
 So, in this case the heap allocated variable is returned to memory by the garbage collector when g() completes.
 
+#### Assignments
+
+```
+x = 1				// named variable
+*p = true			// indirect variable
+person.name = "bob"		// struct field
+count[x] = count[x] * scale   // array or slice or map 
+```
+
+Each arithemetic and bitwise operator has an assignment operator.  As an example, an 
+equivalent for the last statement is:
+
+```
+count[x] *= scale
+```
+
+Numerical variables can also be modified using postfix operators:
+
+```
+v := 1
+v++   // v -> 2
+v--   // v -> 1
+```
+#### Tuple Assignments
+
+resume at 2.4.1
