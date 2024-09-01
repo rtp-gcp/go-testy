@@ -456,4 +456,113 @@ v--   // v -> 1
 ```
 #### Tuple Assignments
 
-resume at 2.4.1
+Several variables can be assigned at one time using tuple assignment.
+All right hand variables are resolved before assigning on the left hand side.
+This allows a one line swap assignment.
+
+```
+x, y = y, x
+```
+and when computing the greatest common divisor (GCD) of two integers
+
+As an example:
+
+```
+func gcd(x, y int) int {
+
+	// repeat until y result is not zero
+	for y != 0 {
+		fmt.Printf("loop with y: %d\n", y)
+		// so for gcd(12, 6)
+		// x, y = 6, 12%6 -> 0
+		// x = 6
+		// y = 0
+		// return 6
+		//
+		// so for gcd(6, 12)
+		// x, y = 12, 6%12 -> 6
+		// x = 12
+		// y = 6
+		// 
+		// y is not zero so it loops again
+                //
+		// but this is a for loop, so it assigns x=12 and y=6 so next iteration is
+		// x, y = 6, 12%6 -> 0
+		// x = 6
+		// y = 0
+		// break loop and return 6
+		// return 6
+		
+
+		x, y = y, x%y
+		fmt.Printf("Result of x:%d y:%d\n", x, y)
+	}
+	// return 12 and why not 6
+	return x
+}
+
+func main() {
+	println(gcd(12, 6))
+	println(gcd(6, 12))
+}
+```
+
+with output
+
+```
+loop with y: 6
+Result of x:6 y:0
+6
+loop with y: 12
+Result of x:12 y:6
+loop with y: 6
+Result of x:6 y:0
+6
+```
+
+
+or w hen comput ing t he n-t h Fib onacci numb er iterat ively :
+```
+1.	0
+2.	1
+3.	1 (0 + 1)
+4.	2 (1 + 1)
+5.	3 (1 + 2)
+6.	5 (2 + 3)
+7.	8 (3 + 5)
+8.	13 (5 + 8)
+9.	21 (8 + 13)
+10.	34 (13 + 21)
+```
+
+the loop counter could be done as n-1
+
+```
+     func fib(n int) int {
+         x, y := 0, 1
+         for i := 0; i < n; i++ {
+             x, y = y, x+y
+}
+return x }
+```
+
+Certain expressions, such as a call to a function with multiple results, produce several values. 
+When such a call is used in an assignment statement, the left-hand side must have as many variables 
+as the function has results.
+
+```
+     f, err = os.Open("foo.txt")  // function call returns two values
+```
+
+Often, Functions use these additional results to indicate some kind of error, either by 
+returning an error as in the call to os.Open, or a bool, usually called ok. As we’ll see in later chapters…
+
+
+
+As with variable declarations, we can assign unwanted values to the blank identifier:
+
+```
+_, err = io.Copy(dst, src) // discard byte count
+_, ok = x.(T)              // check type but discard result
+```
+
