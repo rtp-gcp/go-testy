@@ -425,6 +425,8 @@ func g() {
 	y := new(int)
 	*y = 1
 }
+```
+
 
 In this case new() allocates on the heap, but the value of y is dereferenced and assigned a value without 
 returning the value or the address.  Go, python and swift require the use of return to return a value, unlike R.
@@ -454,6 +456,7 @@ v := 1
 v++   // v -> 2
 v--   // v -> 1
 ```
+
 #### Tuple Assignments
 
 Several variables can be assigned at one time using tuple assignment.
@@ -463,6 +466,7 @@ This allows a one line swap assignment.
 ```
 x, y = y, x
 ```
+
 and when computing the greatest common divisor (GCD) of two integers
 
 As an example:
@@ -521,7 +525,8 @@ Result of x:6 y:0
 ```
 
 
-or w hen comput ing t he n-t h Fib onacci numb er iterat ively :
+or when computing the n-th Fibonacci number iteratively : 
+
 ```
 1.	0
 2.	1
@@ -566,3 +571,77 @@ _, err = io.Copy(dst, src) // discard byte count
 _, ok = x.(T)              // check type but discard result
 ```
 
+### 2.5 Type Declarations
+
+A type declaration/statement defines a new type which is identical to an existing type.
+
+```
+// type newtype_name underlying_type_name
+type Celsius float64
+```
+
+Furthermore
+
+```
+type Celsius float64
+type Fahrenheit float64
+
+const (
+	AbsoluteZeroC	Celsius = -273.15
+	FreezingC		Celsius = 0
+	BoilingC		Celsius = 100
+)
+
+func CtoF(c Celsius) Fahrenheit {
+	return Fahrenheit(c*9/5 + 32)
+}
+
+func FtoC(f Fahrenheit) Celsius {
+	return Celsius((f - 32) * 5/9)
+}
+```
+
+Every defined type has a automatic given conversion function `T(x)`.  Comparision and
+assignment operations are automatic for two variables if they are of the same 
+underlying type.
+
+```
+f Fahrenheit = 23
+c Celsius = 32
+
+f = c
+f < c 
+f == c 
+```
+
+New operations can be defined for a type.  Here a method returns a string representation 
+of a celsius type.
+
+This is a method named `String`, with a type and variable specified between the func keyword
+and the method name.  
+
+```
+func (c Celsius)  String() string {
+	return fmt.Sprintf("%g °C", c)
+}
+```
+
+examples where it is used and not used
+
+```
+c := FtoC(212.0)
+
+fmt.Println(c.String())  	// explicitly called
+
+fmt.Printf("%v\n", c)   	// no need to call explictily
+fmt.Printf("%s\n", c) 		// no need to call explictily
+fmt.Println(c)				// no need to call explictily
+
+fmt.Printf("%g\n", c)		// does not call String()
+fmt.Println("float64(c))	// does not call String()
+```
+
+
+
+
+### 2.6 Packages and Files
