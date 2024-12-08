@@ -13,3 +13,7 @@ go.sum
 # ignore the bin dir 
 bin/
 
+
+# ignore sqlite3 databases
+*.db
+

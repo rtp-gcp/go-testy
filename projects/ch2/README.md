@@ -645,3 +645,10 @@ fmt.Println("float64(c))	// does not call String()
 
 
 ### 2.6 Packages and Files
+
+The package tempconv has a document comment for the package.  Its the comment before the
+package statement.  It should be a one line summary.  Its accessible via 
+
+```
+go doc tempconv
+```
