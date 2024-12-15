@@ -652,3 +652,32 @@ package statement.  It should be a one line summary.  Its accessible via
 ```
 go doc tempconv
 ```
+
+#### 2.6.1 Imports
+
+Some terms are introduced
+
+* package name  
+  - This is the in the code with the "package" keyword.
+  - It corresponds to the last entry in the `import path`. 
+* import path
+  - for packages which are imported from the file system, this is the path to the package.  
+  - The patch includes the directory that contains the code.
+  - By convention the directory name and the packae name in the code match.
+
+
+Introduces two tools
+
+* goimports
+  - inserts/removes packages from the import section.
+  - install
+    * `go install golang.org/x/tools/cmd/goimports@latest`
+    * This install to $GOPATH/bin.  Note: `$ go env` will show $GOPATH if not in ENV.  if this dir is not 
+    in $PATH, simply add it.
+  - usage
+    * `goimports -w main.go` will rewrite main.go source file
+
+* gofmt
+  - formats code in canonical form.
+  - `gofmt -w main.go` will rewrite the main.go source file
+
