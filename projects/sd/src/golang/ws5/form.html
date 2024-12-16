@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>
+            Sample HTML for hackathon
+        </title>
+    </head>
+    <body>
+        <h1>{{ . }}</h1>
+
+        <form action="/process" method="post">
+            <label for="fname">First name:</label>
+            <input type="text" id="fname" name="fname">
+            <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname">
+            <input type="submit"/>
+        </form>
+    </body>
+</html>
+
