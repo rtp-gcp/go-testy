@@ -681,3 +681,13 @@ Introduces two tools
   - formats code in canonical form.
   - `gofmt -w main.go` will rewrite the main.go source file
 
+#### 2.6.2 Package Installation
+
+There is a special function called `init()` which is called before `main()`.  Things to note about this function.
+
+* You don't explictly call `init()`.
+* it does not have any return value or parameters.
+* when its complete, `main()` is called.
+
+Look at project package_init for same code.
+

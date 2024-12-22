@@ -9,6 +9,7 @@ bin/staticcheck
 .DS_Store
 keys/*.json
 venv/
+main
 
 # ignore ninja deps files
 .ninja_deps
