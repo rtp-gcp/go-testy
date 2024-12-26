@@ -25,12 +25,22 @@ func init() {
 
 // PopCount returns the population count (number of set bits ) of 64-bit value x
 func PopCount(x uint64) int {
-	var result int = 0
+	// one way to define, but generates a warning
+	// var result int = 0
+	result := 0
 	var byteValue int
+
+	// Debug input
+	fmt.Printf("x: %d  %x\n", x, x)
 
 	for i := 0; i < 8; i++ {
 
-		byteValue = int(x >> (i * 8))
+		// Could mask so we have one byte
+		// byteValue = int(0xFF & (x >> (i * 8)))
+
+		// Or use types to mask for us
+		byteValue = int(byte(x >> (i * 8)))
+
 		fmt.Printf("i:%d:      x>>i: %x\n", i, byteValue)
 		result = result + int(pc[byteValue])
 	}
