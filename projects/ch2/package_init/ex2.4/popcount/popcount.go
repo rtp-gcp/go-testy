@@ -1,6 +1,8 @@
 package popcount
 
 // package main
+//
+// EX 2.4 this implementation shifts by one bit
 
 import (
 	"fmt"
@@ -33,18 +35,10 @@ func PopCount(x uint64) int {
 	// Debug input
 	fmt.Printf("x: %d  %x\n", x, x)
 
-	for i := 0; i < 8; i++ {
+	for i := 0; i < 64; i++ {
 
-		// This is an error. For 0x100, we shift over 0x100 by one 0 byes
-		// on first loop interval and then we don't mask out the upper bytes.
-		// As a result, the index is greater than 255.
-		// byteValue = int(x >> (i * 8))
-
-		// Could mask so we have one byte
-		// byteValue = int(0xFF & (x >> (i * 8)))
-
-		// Or use types to mask for us
-		byteValue = int(byte(x >> (i * 8)))
+		// mask so we have one bit
+		byteValue = int(0x01 & (x >> (i)))
 
 		fmt.Printf("i:%d:      x>>i: %x\n", i, byteValue)
 		result = result + int(pc[byteValue])

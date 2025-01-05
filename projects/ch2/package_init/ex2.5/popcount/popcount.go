@@ -1,6 +1,9 @@
 package popcount
 
 // package main
+//
+// Exercis e 2.5: The expression x&(x-1) clears the rig htmost non-zero bit of x.
+// Write a version of PopCountthat counts bits by using this fac t, and ass ess its per for mance.
 
 import (
 	"fmt"
@@ -28,26 +31,17 @@ func PopCount(x uint64) int {
 	// one way to define, but generates a warning
 	// var result int = 0
 	result := 0
-	var byteValue int
 
 	// Debug input
-	fmt.Printf("x: %d  %x\n", x, x)
+	fmt.Printf("x(decimal,hex,binary): %d  0x%04x \t %064b\n", x, x, x)
 
-	for i := 0; i < 8; i++ {
+	for x != 0 {
 
-		// This is an error. For 0x100, we shift over 0x100 by one 0 byes
-		// on first loop interval and then we don't mask out the upper bytes.
-		// As a result, the index is greater than 255.
-		// byteValue = int(x >> (i * 8))
+		// mask so we have one bit
+		x = x & (x - 1)
 
-		// Could mask so we have one byte
-		// byteValue = int(0xFF & (x >> (i * 8)))
-
-		// Or use types to mask for us
-		byteValue = int(byte(x >> (i * 8)))
-
-		fmt.Printf("i:%d:      x>>i: %x\n", i, byteValue)
-		result = result + int(pc[byteValue])
+		fmt.Printf("x(decimal,hex,binary): %d 0x%04x \t %064b\n", x, x, x)
+		result = result + 1
 	}
 
 	return result
