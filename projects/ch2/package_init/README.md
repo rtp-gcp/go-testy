@@ -33,3 +33,9 @@ This will run a specific test and then call the benchmark test
 $ cd popcount
 $ go test -v -run ^TestFunction64k$ -bench=BenchmarkFunction
 ```
+
+### Benchmarks
+1.5 using a loop and doing bytewise
+1.6 using a loop and doing bitwise
+1.3 using a loop and doing an AND operation
+
