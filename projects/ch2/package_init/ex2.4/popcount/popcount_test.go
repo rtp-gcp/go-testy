@@ -69,3 +69,36 @@ func TestFunction64km1(t *testing.T) {
 		t.Errorf("PopCount(64k-1) = %d; want 16", result)
 	}
 }
+
+// demo a table test of values
+var flagtests = []struct {
+	name string
+	in   uint64
+	out  int
+}{
+	{"one", 1, 1},
+	{"two", 2, 1},
+	{"three", 3, 2},
+	{"four", 4, 1},
+}
+
+func TestFlagParser(t *testing.T) {
+	for _, tt := range flagtests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := popcount.PopCount(tt.in)
+			if s != tt.out {
+				t.Errorf("Test name: %q, got %q, want %q", tt.name, s, tt.out)
+			}
+		})
+	}
+}
+
+//
+// Add a benchmark function
+//
+
+func BenchmarkFunction(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		popcount.PopCount(64 * 1024)
+	}
+}

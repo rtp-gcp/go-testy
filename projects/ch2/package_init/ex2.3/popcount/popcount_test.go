@@ -92,3 +92,13 @@ func TestFlagParser(t *testing.T) {
 		})
 	}
 }
+
+//
+// Add a benchmark function
+//
+
+func BenchmarkFunction(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		popcount.PopCount(64 * 1024)
+	}
+}
