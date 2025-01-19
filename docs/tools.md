@@ -195,5 +195,21 @@ go vet ./...
 
 TODO
 
+## go imports
 
+* goimports
+  - inserts/removes packages from the import section.
+  - install
+    * `go install golang.org/x/tools/cmd/goimports@latest`
+    * This install to $GOPATH/bin.  Note: `$ go env` will show $GOPATH if not in ENV.  if this dir is not 
+    in $PATH, simply add it.
+  - usage
+    * `goimports -w main.go` will rewrite main.go source file
+
+## go format
+
+
+* gofmt
+  - formats code in canonical form.
+  - `gofmt -w main.go` will rewrite the main.go source file
 
