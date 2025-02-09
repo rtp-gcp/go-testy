@@ -22,4 +22,5 @@ func main() {
 	intlib.SomeFunc()
 	intlib.DemoForTypeConversion()
 	intlib.DemoForRunes()
+	floatlib.DemoFloats()
 }
